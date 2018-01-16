@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <v-header :seller="seller"></v-header>
-    <div class="tab border-1px">
+    <div class="tab border-1px border-1px-top">
       <div class="tab-item">
         <router-link to="/goods">商品</router-link>
       </div>
@@ -33,7 +33,6 @@
       // 获取seller的数据
       getSeller () {
         this.$http.get('/api/seller').then((result) => {
-          console.log(result)
           if (result.data.errno === ERR_OK) {
             this.seller = result.data.data
           }
@@ -57,6 +56,7 @@
       height: 40px
       line-height: 40px
       border-1px(rgba(7, 17, 27, 0.1))
+      border-1px-top(rgba(7, 17, 27, 0.1))
       .tab-item
         flex: 1
         text-align: center
