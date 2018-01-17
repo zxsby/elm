@@ -32,19 +32,23 @@
                   <span class="now">￥{{food.price}}</span><span class="old"
                                                                 v-show="food.oldPrice">￥{{food.oldPrice}}</span>
                 </div>
+                <div class="cartcontrol-wapper">
+                  <cartcontrol :food="food"></cartcontrol>
+                </div>
               </div>
             </li>
           </ul>
         </li>
       </ul>
     </div>
-    <shopcart :deliveryPrice="seller.deliveryPrice" :minPrice="seller.inPrice"></shopcart>
+    <shopcart :selectFoods="selectFoods" :deliveryPrice="seller.deliveryPrice" :minPrice="seller.minPrice"></shopcart>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
   import BScroll from 'better-scroll'
   import shopcart from '../shopcart/shopcart.vue'
+  import cartcontrol from '../cartcontrol/cartcontrol.vue'
   const ERR_OK = 0
   export default {
     props: {
@@ -84,6 +88,18 @@
           }
         }
         return 0
+      },
+      // foods 对象
+      selectFoods () {
+        let foods = []
+        this.goods.forEach((good) => {
+          good.foods.forEach((food) => {
+            if (food.count) {
+              foods.push(food)
+            }
+          })
+        })
+        return foods
       }
     },
     methods: {
@@ -97,7 +113,8 @@
       //  创建2个scroll
       _initScroll () {
         this.foodScroll = new BScroll(this.$refs.foodWrapper, {
-          probeType: 3
+          probeType: 3,
+          click: true
         })
         this.meunScroll = new BScroll(this.$refs.menuWrapper, {
           click: true
@@ -120,7 +137,8 @@
       }
     },
     components: {
-      shopcart
+      shopcart,
+      cartcontrol
     }
   }
 </script>
@@ -227,4 +245,8 @@
               text-decoration: line-through
               font-size: 10px
               color: rgb(147, 153, 159)
+          .cartcontrol-wapper
+            position: absolute
+            bottom: 12px
+            right: 0
 </style>

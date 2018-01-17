@@ -29,7 +29,7 @@
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
-    <transition name="list-fade">
+    <transition name="move">
       <div v-show="detailShow" class="detail">
         <div class="detail-wrapper claerfix">
           <div class="detail-main">
@@ -131,7 +131,6 @@
             font-size: 16px
             line-height: 18px
             font-weight bold
-
         .description
           margin-bottom: 10px
           line-height: 12px
@@ -221,10 +220,10 @@
       overflow: auto
       background: rgba(7, 17, 27, 0.8)
       backdrop-filter: blur(10px)
-      &.list-fade-enter-active, &.list-fade-leave-active
-        transition: all 5s linner
-      &.list-fade-enter, &.list-fade-leave-to
-        opacity: 0.5
+      &.move-enter-active, &.move-leave-active
+        transition: opacity .5s
+      &.move-enter, &.move-leave-to
+        opacity: 0
       .detail-wrapper
         min-height: 100%
         width: 100%
